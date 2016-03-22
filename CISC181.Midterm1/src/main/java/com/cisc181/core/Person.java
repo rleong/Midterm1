@@ -141,4 +141,30 @@ public abstract class Person implements java.io.Serializable {
 		return age;
 
 	}
+	
+	@SuppressWarnings("deprecation")
+	public void ageVerify (int age) throws PersonException{
+		age = this.PrintAge();
+		Date currentDate = new Date();
+		
+		if(DOB.getYear() > 100 + currentDate.getYear()){
+			System.out.println("Age is 100 years older than current date.");
+			throw new PersonException(this);
+		}
+	}
+	
+	public void phoneVerify (String phone_number) throws PersonException{
+		String regex = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
+		
+		Pattern pattern = Pattern.compile(regex);
+		
+		Matcher matcher = pattern.matcher(phone_number);
+		 
+		if(matcher.matches())
+		{
+		    System.out.println("The phone number is not in North American format.");
+		    throw new PersonException(this);
+		}
+	}
+	
 }
